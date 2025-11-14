@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://berkblhcf33eg"]
+
+[ext_resource type="Script" uid="uid://cemfpycsdt0r7" path="res://scripts/goomba.gd" id="1_fgpj4"]
+[ext_resource type="Texture2D" uid="uid://b4fhryeiuspyr" path="res://assets/goomba.png" id="1_s1jgw"]
+[ext_resource type="PackedScene" uid="uid://c4qp4rr360awu" path="res://scenes/killzone.tscn" id="2_fgpj4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0j8n"]
+atlas = ExtResource("1_s1jgw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lml2"]
+atlas = ExtResource("1_s1jgw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3hfl1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0j8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lml2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xltp"]
+size = Vector2(14, 6.25)
+
+[node name="Goomba" type="Node2D"]
+script = ExtResource("1_fgpj4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3hfl1")
+autoplay = "default"
+frame_progress = 0.030642046
+
+[node name="Killzone" parent="." instance=ExtResource("2_fgpj4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -0.875)
+shape = SubResource("RectangleShape2D_6xltp")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+rotation = 0.0003700809
+target_position = Vector2(8, 0.0003479123)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+rotation = 0.0035826142
+target_position = Vector2(-8, -0.00034797192)
