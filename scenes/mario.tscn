@@ -1,11 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://0eapi33t1np5"]
+[gd_scene load_steps=12 format=3 uid="uid://0eapi33t1np5"]
 
 [ext_resource type="Script" uid="uid://b27wywehyulrj" path="res://scripts/mario.gd" id="1_bvgp0"]
+[ext_resource type="Texture2D" uid="uid://dhvfdv22wdece" path="res://assets/mariodead.png" id="2_rgcl4"]
 [ext_resource type="Texture2D" uid="uid://cu6wujt1brpi1" path="res://assets/mariostand.png" id="2_wnd63"]
 [ext_resource type="Texture2D" uid="uid://bot47p3cbd0d5" path="res://assets/mariojump.png" id="3_rgcl4"]
+[ext_resource type="Texture2D" uid="uid://bk0byexpxfbvt" path="res://assets/walk.png" id="5_cjj4f"]
+[ext_resource type="AudioStream" uid="uid://bumsnwwr0wl6p" path="res://assets/jumpsmall.wav" id="5_rgcl4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ska5"]
+atlas = ExtResource("5_cjj4f")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l4gq"]
+atlas = ExtResource("5_cjj4f")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0xp7"]
+atlas = ExtResource("5_cjj4f")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5gbmu"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rgcl4")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_wnd63")
@@ -22,10 +45,19 @@ animations = [{
 "name": &"jump",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ska5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5l4gq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0xp7")
+}],
 "loop": true,
 "name": &"run",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [],
 "loop": true,
@@ -43,8 +75,13 @@ script = ExtResource("1_bvgp0")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -20)
 sprite_frames = SubResource("SpriteFrames_5gbmu")
-animation = &"jump"
+animation = &"run"
+frame_progress = 0.688491
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -19.390625)
 shape = SubResource("RectangleShape2D_wnd63")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rgcl4")
+bus = &"SFX"

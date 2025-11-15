@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cim1mwhf888px"]
+[gd_scene load_steps=12 format=4 uid="uid://cim1mwhf888px"]
 
 [ext_resource type="Script" uid="uid://bxhjwwu2b1dx8" path="res://scripts/camera_2d.gd" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://0eapi33t1np5" path="res://scenes/mario.tscn" id="1_uwrxv"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c32167rw8ns0g" path="res://scenes/coin.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c4qp4rr360awu" path="res://scenes/killzone.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://berkblhcf33eg" path="res://scenes/goomba.tscn" id="6_p57ef"]
+[ext_resource type="AudioStream" uid="uid://cmf2jkfqi2ijj" path="res://assets/Ground Theme.mp3" id="7_u5sy4"]
+[ext_resource type="Script" uid="uid://nwgnn0db4r3s" path="res://scenes/music.gd" id="8_gee14"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -38,7 +40,6 @@ separation = Vector2i(1, 1)
 19:0/0 = 0
 20:0/0 = 0
 21:0/0 = 0
-22:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
@@ -63,7 +64,6 @@ separation = Vector2i(1, 1)
 19:1/0 = 0
 20:1/0 = 0
 21:1/0 = 0
-22:1/0 = 0
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
@@ -88,7 +88,6 @@ separation = Vector2i(1, 1)
 19:2/0 = 0
 20:2/0 = 0
 21:2/0 = 0
-22:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
 2:3/0 = 0
@@ -112,7 +111,6 @@ separation = Vector2i(1, 1)
 19:3/0 = 0
 20:3/0 = 0
 21:3/0 = 0
-22:3/0 = 0
 0:4/0 = 0
 1:4/0 = 0
 2:4/0 = 0
@@ -136,7 +134,6 @@ separation = Vector2i(1, 1)
 19:4/0 = 0
 20:4/0 = 0
 21:4/0 = 0
-22:4/0 = 0
 0:5/0 = 0
 0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:5/0 = 0
@@ -160,10 +157,10 @@ separation = Vector2i(1, 1)
 19:5/0 = 0
 20:5/0 = 0
 21:5/0 = 0
-22:5/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 5
+physics_layer_0/collision_mask = 5
 sources/4 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
@@ -215,3 +212,9 @@ position = Vector2(202, -123)
 
 [node name="Goomba" parent="." instance=ExtResource("6_p57ef")]
 position = Vector2(262, -66)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_u5sy4")
+autoplay = true
+bus = &"Music"
+script = ExtResource("8_gee14")
