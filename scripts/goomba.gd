@@ -1,18 +1,33 @@
-extends Node2D
-const SPEED = 52.5
-var direction = 1
+extends CharacterBody2D
+
+const SPEED := 52.5
+const GRAVITY := 900.0
+
+var direction := 1
+
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
+@onready var ray_cast_floor_left: RayCast2D = $RayCastFloorLeft
+@onready var ray_cast_floor_right: RayCast2D = $RayCastFloorRight
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	# --- WALL TURNING ---
 	if ray_cast_right.is_colliding():
 		direction = -1
+
 	if ray_cast_left.is_colliding():
 		direction = 1
-	position.x += direction * SPEED *delta
+
+	# --- HORIZONTAL MOVEMENT ---
+	velocity.x = direction * SPEED
+
+	# --- GRAVITY ---
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	else:
+		if velocity.y > 0.0:
+			velocity.y = 0.0
+
+	# --- PHYSICS MOVEMENT ---
+	move_and_slide()

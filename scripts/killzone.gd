@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var timer: Timer = $Timer
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer2D
 #@onready var anim: AnimatedSprite2D = $root/mario/AnimatedSprite2D
 
 func _on_body_entered(body: Node2D) -> void:
@@ -9,7 +9,7 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	body.get_node("CollisionShape2D").queue_free()
 	timer.start()
-	audio_stream_player_2d.play()
+	audio_stream_player.play()
 	body.die()
 		 # Replace with function body.
 

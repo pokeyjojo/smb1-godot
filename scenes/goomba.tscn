@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://berkblhcf33eg"]
+[gd_scene load_steps=9 format=3 uid="uid://berkblhcf33eg"]
 
 [ext_resource type="Script" uid="uid://cemfpycsdt0r7" path="res://scripts/goomba.gd" id="1_fgpj4"]
 [ext_resource type="Texture2D" uid="uid://b4fhryeiuspyr" path="res://assets/goomba.png" id="1_s1jgw"]
 [ext_resource type="PackedScene" uid="uid://c4qp4rr360awu" path="res://scenes/killzone.tscn" id="2_fgpj4"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_fgpj4"]
+b = Vector2(11, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0j8n"]
 atlas = ExtResource("1_s1jgw")
@@ -29,8 +32,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xltp"]
 size = Vector2(14, 6.25)
 
-[node name="Goomba" type="Node2D"]
+[node name="Goomba" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_fgpj4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 5)
+shape = SubResource("SegmentShape2D_fgpj4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3hfl1")
@@ -52,5 +61,16 @@ collision_mask = 4
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(0, -1)
 rotation = 0.0035826142
+scale = Vector2(0.99999994, 0.99999994)
 target_position = Vector2(-8, -0.00034797192)
+collision_mask = 4
+
+[node name="RayCastFloorLeft" type="RayCast2D" parent="."]
+position = Vector2(-6, 5)
+target_position = Vector2(0, 8)
+collision_mask = 4
+
+[node name="RayCastFloorRight" type="RayCast2D" parent="."]
+position = Vector2(4, 6)
+target_position = Vector2(0, 8)
 collision_mask = 4
